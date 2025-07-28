@@ -1,5 +1,6 @@
 import pandas as pd
-history = pd.read_json("watch-history.json")
-history = pd.DataFrame(history)
-
-print(history.loc[19])
+import streamlit as st
+st.write("Version 0.1")
+file = st.file_uploader("Upload a CSV")
+file = pd.read_json(file)
+st.dataframe(file)
