@@ -1,7 +1,5 @@
 import pandas as pd
 import streamlit as st
-with open('watch-history.json') as f:
-    file = pd.read_json(f)
 
 def categorize(row):
     if row['category'] == 'video' and not row['shorts']:
@@ -11,19 +9,21 @@ def categorize(row):
     else:
         return 'ad'
 
+with open('watch-history.json') as f:
+    file = pd.read_json(f)
+
 file = file[file['time'].str[:4] == '2024']
-
-file = file.drop(['header','details','description','products','subtitles'],axis='columns')
-
+file = file.drop(['header','details','description','products'],axis='columns')
 file['category'] = file['activityControls'].apply(len)
 file['category'] = file['category'].map({1: 'video', 2: 'ads', 3: 'ads'})
 file['shorts'] = file['title'].str.contains('#shorts')
-
 file['type'] = file.apply(categorize, axis=1)
 
 movies = file[file['type'] == 'movie']
 
-movies['date'] = pd.to_datetime(file['time'].str[:10])
+movies['channel'] = movies['subtitles'].str[0].str['name']
+
+movies['date'] = pd.to_datetime(movies['time'].str[:10])
 
 movies['weekday'] = movies['date'].dt.day_name()
 weekday_amount = movies[['date','weekday']].drop_duplicates()
@@ -45,6 +45,8 @@ videos_counter = movies['title'].value_counts()
 
 type_counter = file['type'].value_counts()
 
+channel_counter = movies['channel'].value_counts()
+
 movies['hours'] = movies['time'].str[11:13]
 hourwatch = movies['hours'].value_counts() / 365
 
@@ -61,6 +63,8 @@ st.dataframe(days.head(3))
 st.write("Top 3 videos")
 st.dataframe(videos_counter.head(3))
 
+st.write("Top 5 channels")
+st.dataframe(channel_counter.head(5))
 
 st.write("Type counter")
 st.dataframe(type_counter)
