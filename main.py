@@ -50,8 +50,10 @@ hourwatch = movies['hours'].value_counts() / 365
 
 days = movies['date'].value_counts()
 
-st.write("Movies dateframe")
-st.dataframe(movies)
+date_watch = movies['date'].drop_duplicates()
+
+st.write("Days without YT:")
+st.write(365 - len(date_watch))
 
 st.write("Top 3 days")
 st.dataframe(days.head(3))
@@ -65,6 +67,9 @@ st.dataframe(type_counter)
 
 st.write("Watch per day")
 st.write(type_counter.loc['movie'] / 365)
+
+st.write("Real watch per day")
+st.write(type_counter.loc['movie'] / len(date_watch))
 
 st.write("Watch per month")
 st.bar_chart(monthwatch)
