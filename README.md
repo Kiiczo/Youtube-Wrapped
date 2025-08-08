@@ -20,7 +20,7 @@
 
 No installation is required! Use the app directly via GitHub Pages:
 
-➡️ **[Try Youtube Wrapped now on GitHub Pages](https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/)**
+➡️ **[Try Youtube Wrapped now on GitHub Pages](https://kiiczo.github.io/Youtube-Wrapped/)**
 
 ---
 
