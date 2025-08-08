@@ -35,6 +35,9 @@ def categorize(row):
     else:
         return 'ad'
 
+st.title("📊 Your YouTube Wrapped 2024")
+st.markdown("---")
+
 file = st.file_uploader("Upload a JSON")
 
 if file != None:
@@ -82,9 +85,6 @@ if file != None:
     hourwatch.name = 'video per hour'
 
     date_watch = movies['date'].drop_duplicates()
-
-    st.title("📊 Your YouTube Wrapped 2024")
-    st.markdown("---")
 
     st.header("✨ Key Numbers")
     col1, col2, col3, col4 = st.columns(4)
