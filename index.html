@@ -25,6 +25,8 @@ mount(
 "streamlit_app.py": `import pandas as pd
 import streamlit as st
 
+st.set_page_config(page_title="Youtube Wrapped")
+
 def categorize(row):
     if row['category'] == 'video' and not row['shorts']:
         return 'movie'
@@ -33,6 +35,8 @@ def categorize(row):
     else:
         return 'ad'
 
+
+st.write("Version 0.1")
 file = st.file_uploader("Upload a JSON")
 
 if file != None:
